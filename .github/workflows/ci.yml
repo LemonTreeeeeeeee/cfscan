@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  build:
+    name: Build & Cross-Compile
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Verify dependencies
+        run: go mod verify
+
+      - name: Run go vet
+        run: go vet ./...
+
+      - name: Build (native)
+        run: make build
+
+      - name: Cross-compile all platforms
+        run: make all
+
+      - name: List built binaries
+        run: ls -lh dist/
+
+      - name: Upload cross-compiled artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cfscan-proto-binaries
+          path: dist/
+          retention-days: 14
+          if-no-files-found: error

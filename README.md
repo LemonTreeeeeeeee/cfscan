@@ -1,5 +1,7 @@
 # cfscan_proto
 
+[![CI](https://github.com/LemonTreeeeeeeee/cfscan/actions/workflows/ci.yml/badge.svg)](https://github.com/LemonTreeeeeeeee/cfscan/actions/workflows/ci.yml)
+
 > **⚠️ EDUCATIONAL AND RESEARCH USE ONLY — NOT FOR UNAUTHORIZED SCANNING ⚠️**
 >
 > This project is provided **strictly for educational, academic research, and authorized security testing purposes**.
@@ -34,6 +36,8 @@ make
 ```
 
 This produces `./cfscan_proto` for the host platform.
+
+CI runs the same `make build` + `make all` steps on every push and pull request (see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
 
 To cross-compile release binaries:
 
